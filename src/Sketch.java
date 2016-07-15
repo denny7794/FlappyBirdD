@@ -33,7 +33,8 @@ public class Sketch extends PApplet {
     }
 
     public void keyPressed(){
-        vy *= -1;
+        //vy *= -1;
+        vy = -14.0f;
     }
 
     public void keyReleased(){
