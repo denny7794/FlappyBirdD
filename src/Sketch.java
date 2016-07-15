@@ -29,6 +29,8 @@ public class Sketch extends PApplet {
         //rect(xpos, ypos, 40, 40);
         count++;
         drawBackground();
+        /*textSize(50);
+        text(count, 50, 50);*/
         image(bird, xpos, ypos);
         vy +=gravity;
         ypos += vy;
