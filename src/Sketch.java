@@ -11,6 +11,7 @@ public class Sketch extends PApplet {
     float vy = 0f;
     float gravity = 0.7f;
     PImage bird;
+    PImage fon;
 
     public void settings() { size(800, 600);}
 
@@ -18,10 +19,12 @@ public class Sketch extends PApplet {
         smooth();
         noStroke();
         bird = loadImage("bird1.png");
+        fon = loadImage("back.png");
     }
 
     public void draw(){
         background(0);
+        drawBackground();
         //fill(255);
         //rect(xpos, ypos, 40, 40);
         image(bird, xpos, ypos);
@@ -39,5 +42,9 @@ public class Sketch extends PApplet {
 
     public void keyReleased(){
         vy = gravity;
+    }
+
+    void drawBackground(){
+        image(fon, 0, 0);
     }
 }
