@@ -12,6 +12,7 @@ public class Sketch extends PApplet {
     float gravity = 0.7f;
     PImage bird;
     PImage fon;
+    int count = 0;
 
     public void settings() { size(800, 600);}
 
@@ -23,10 +24,11 @@ public class Sketch extends PApplet {
     }
 
     public void draw(){
-        background(0);
-        drawBackground();
+        //background(0);
         //fill(255);
         //rect(xpos, ypos, 40, 40);
+        count++;
+        drawBackground();
         image(bird, xpos, ypos);
         vy +=gravity;
         ypos += vy;
@@ -45,6 +47,9 @@ public class Sketch extends PApplet {
     }
 
     void drawBackground(){
-        image(fon, 0, 0);
+        //image(fon, 0, 0);
+        image(fon, -count, 0);
+        image(fon, width - count, 0);
+        if(count == width) count = 0; //my modification
     }
 }
