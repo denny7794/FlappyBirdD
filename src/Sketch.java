@@ -8,7 +8,7 @@ public class Sketch extends PApplet {
     float xpos = 200f;
     float ypos = 50f;
     float vy = 0f;
-    float gravity = 0.98f;
+    float gravity = 0.7f;
 
     public void settings() { size(800, 600);}
 
