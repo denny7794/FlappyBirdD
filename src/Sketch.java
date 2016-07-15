@@ -13,6 +13,7 @@ public class Sketch extends PApplet {
     PImage bird;
     PImage fon;
     int count = 0;
+    PImage wall;
 
     public void settings() { size(800, 600);}
 
@@ -21,6 +22,7 @@ public class Sketch extends PApplet {
         noStroke();
         bird = loadImage("bird1.png");
         fon = loadImage("back.png");
+        wall = loadImage("truba.png");
     }
 
     public void draw(){
@@ -28,9 +30,9 @@ public class Sketch extends PApplet {
         //fill(255);
         //rect(xpos, ypos, 40, 40);
         count++;
-        drawBackground();
-        /*textSize(50);
-        text(count, 50, 50);*/
+        drawBackgroundAndWalls(count%width);//!зачем count%width ?? можно просто count
+        //textSize(50);
+        //text(count%width, 50, 50);
         image(bird, xpos, ypos);
         vy +=gravity;
         ypos += vy;
@@ -48,10 +50,19 @@ public class Sketch extends PApplet {
         vy = gravity;
     }
 
-    void drawBackground(){
+    void drawBackgroundAndWalls(int offset){
         //image(fon, 0, 0);
         image(fon, -count, 0);
         image(fon, width - count, 0);
         if(count == width) count = 0; //my modification
+        drawWalls(width - offset);
+        drawWalls(-offset);
     }
+
+    void drawWalls(int offset){
+        for (int i = 0; i < 4; i++) {
+            image(wall, offset + 200*i, 350);
+        }    
+    }
+
 }
