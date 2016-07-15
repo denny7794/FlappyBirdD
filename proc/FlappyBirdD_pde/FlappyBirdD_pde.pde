@@ -19,3 +19,11 @@ void draw(){
     ypos =  height - 40;
   }
 }
+
+void keyPressed(){
+        vy *= -1;
+}
+
+void keyReleased(){
+        vy = gravity;
+}
