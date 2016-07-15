@@ -23,5 +23,8 @@ public class Sketch extends PApplet {
         rect(xpos, ypos, 40, 40);
         vy +=gravity;
         ypos += vy;
+        if(ypos > height - 40){
+            ypos = height - 40;
+        }
     }
 }
