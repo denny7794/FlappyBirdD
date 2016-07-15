@@ -27,4 +27,12 @@ public class Sketch extends PApplet {
             ypos = height - 40;
         }
     }
+
+    public void keyPressed(){
+        vy *= -1;
+    }
+
+    public void keyReleased(){
+        vy = gravity;
+    }
 }
