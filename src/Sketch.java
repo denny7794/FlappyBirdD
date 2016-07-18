@@ -1,4 +1,5 @@
 import processing.core.PApplet;
+import processing.core.PFont;
 import processing.core.PImage;
 
 /**
@@ -19,6 +20,8 @@ public class Sketch extends PApplet {
     float[] wallOffset = new float[4];
     WallPair[] walls = new WallPair[4];
     boolean lose = false;
+    int score = 0;
+    PFont flappyFont;
 
     public void settings() { size(800, 600);}
 
@@ -28,9 +31,12 @@ public class Sketch extends PApplet {
         bird = loadImage("bird1.png");
         fon = loadImage("back.png");
         wall = loadImage("truba.png");
+        flappyFont = createFont("04B_19__.TTF", 38.0f, true);
         for (int i = 0; i < wallOffset.length; i++) {
             wallOffset[i] = random(-100, 100);
         }
+        fill(255);
+        textFont(flappyFont);
     }
 
     public void draw(){
@@ -50,11 +56,12 @@ public class Sketch extends PApplet {
             lose = true;
         }
         checkTouch();
+        text("SCORE: " + score, width - 200, 40);
     }
 
     public void keyPressed(){
         //vy *= -1;
-        vy = -14.0f;
+        vy = -9.0f;
     }
 
     public void keyReleased(){
@@ -90,6 +97,9 @@ public class Sketch extends PApplet {
         image(wall, xPos + 200*i, height/2 + 150 + offset);
         if (xPos > 0 && xPos <width) {
             walls[i] = new WallPair(xPos, 200 + offset, height/2 + 150 + offset);
+        }
+        if(xPos == xpos + wall.width && !lose){
+            score++;
         }
     }
 
