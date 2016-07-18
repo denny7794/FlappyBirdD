@@ -11,6 +11,8 @@ int count2 = 0;
 float[] wallOffset = new float[4];
 WallPair[] walls = new WallPair[4];
 boolean lose = false;
+int score = 0;
+PFont flappyFont;
 
 void setup(){
   size(800, 600);
@@ -19,9 +21,12 @@ void setup(){
   bird = loadImage("bird1.png");
   fon = loadImage("back.png");
   wall = loadImage("truba.png");
+  flappyFont = createFont("04B_19__.TTF", 38.0, true);
   for (int i = 0; i < wallOffset.length; i++) {
       wallOffset[i] = random(-100, 100);
   }
+  fill(255);
+  textFont(flappyFont);
 }
 
 void draw(){
@@ -39,11 +44,12 @@ void draw(){
     lose = true;
   }
   checkTouch();
+  text("SCORE: " + score, width - 200, 40);
 }
 
 void keyPressed(){
   //vy *= -1;
-  vy = -14.0f;
+  vy = -9.0f;
 }
 
 void keyReleased(){
@@ -78,6 +84,9 @@ void drawPairOfWalls(int xPos, int i, float offset){
     image(wall, xPos + 200*i, height/2 + 150 + offset);
     if (xPos > 0 && xPos <width) {
           walls[i] = new WallPair(xPos, 200 + offset, height/2 + 150 + offset);
+    }
+    if(xPos == xpos + wall.width && !lose){
+            score++;
     }
 }
 
