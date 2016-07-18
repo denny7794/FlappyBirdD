@@ -18,6 +18,7 @@ public class Sketch extends PApplet {
     int count2 = 0;
     float[] wallOffset = new float[4];
     WallPair[] walls = new WallPair[4];
+    boolean lose = false;
 
     public void settings() { size(800, 600);}
 
@@ -33,10 +34,12 @@ public class Sketch extends PApplet {
     }
 
     public void draw(){
+        if(!lose){
+            count++;
+        }
         //background(0);
         //fill(255);
         //rect(xpos, ypos, 40, 40);
-        count++;
         drawBackgroundAndWalls(count%width);//!зачем count%width ?? можно просто count
         //textSize(50);
         //text(count%width, 50, 50);
@@ -44,7 +47,7 @@ public class Sketch extends PApplet {
         vy +=gravity;
         ypos += vy;
         if(ypos > height - 40){
-            ypos = height - 40;
+            lose = true;
         }
         checkTouch();
     }
@@ -95,6 +98,7 @@ public class Sketch extends PApplet {
             if(pair != null){
                 if((ypos < pair.y1 && xpos > pair.x && xpos < pair.x + wall.width) ||
                    (ypos > pair.y2 && xpos > pair.x && xpos < pair.x + wall.width)){
+                    lose = true;
                     System.out.println("touch" + count2++);
                 }
             }
