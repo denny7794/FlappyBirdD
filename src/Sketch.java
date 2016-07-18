@@ -22,6 +22,7 @@ public class Sketch extends PApplet {
     boolean lose = false;
     int score = 0;
     PFont flappyFont;
+    PImage reset;
 
     public void settings() { size(800, 600);}
 
@@ -32,6 +33,7 @@ public class Sketch extends PApplet {
         fon = loadImage("back.png");
         wall = loadImage("truba.png");
         flappyFont = createFont("04B_19__.TTF", 38.0f, true);
+        reset = loadImage("RestartBtn.png");
         for (int i = 0; i < wallOffset.length; i++) {
             wallOffset[i] = random(-100, 100);
         }
@@ -57,15 +59,39 @@ public class Sketch extends PApplet {
         }
         checkTouch();
         text("SCORE: " + score, width - 200, 40);
+        if(lose){
+            imageMode(CENTER);
+            image(reset, width/2, height/2);
+            imageMode(CORNER);
+        }
     }
 
     public void keyPressed(){
         //vy *= -1;
-        vy = -6.0f;
+        if(!lose) {
+            vy = -6.0f;
+        } else {
+            reset();
+        }
+    }
+
+    void reset(){
+        lose = false;
+        count = 300;
+        ypos = 50;
+        score = 0;
+        vy = 0;
+        for (int i = 0; i < wallOffset.length; i++) {
+            wallOffset[i] = random(-100, 100);
+        }
+        count2 = 0;
+        trigger = false;
     }
 
     public void keyReleased(){
-        vy = gravity;
+        if(!lose) {
+            vy = gravity;
+        }
     }
 
     void drawBackgroundAndWalls(int offset){
@@ -98,7 +124,7 @@ public class Sketch extends PApplet {
         if (xPos > 0 && xPos <width) {
             walls[i] = new WallPair(xPos, 200 + offset, height/2 + 150 + offset);
         }
-        if(xPos == xpos + wall.width && !lose){
+        if(xPos == xpos - wall.width && !lose){
             score++;
         }
     }
