@@ -15,6 +15,7 @@ public class Sketch extends PApplet {
     int count = 300;
     PImage wall;
     boolean trigger=false;
+    float[] wallOffset = new float[4];
 
     public void settings() { size(800, 600);}
 
@@ -24,6 +25,9 @@ public class Sketch extends PApplet {
         bird = loadImage("bird1.png");
         fon = loadImage("back.png");
         wall = loadImage("truba.png");
+        for (int i = 0; i < wallOffset.length; i++) {
+            wallOffset[i] = random(-100, 100);
+        }
     }
 
     public void draw(){
@@ -68,16 +72,16 @@ public class Sketch extends PApplet {
 
     void drawWalls(int offset){
         for (int i = 0; i < 4; i++) {
-            drawPairOfWalls(offset, i);
+            drawPairOfWalls(offset, i, wallOffset[i]);
         }    
     }
 
-    void drawPairOfWalls(int xPos, int i){
+    void drawPairOfWalls(int xPos, int i, float offset){
         pushMatrix();
         rotate(PI);
-        image(wall, -xPos - 200*i - 50, -200);
+        image(wall, -xPos - 200*i - 50, -200 - offset);
         popMatrix();
-        image(wall, xPos + 200*i, 350);
+        image(wall, xPos + 200*i, height/2 + 150 + offset);
     }
 
 }
