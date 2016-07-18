@@ -7,7 +7,9 @@ PImage fon;
 int count = 0;
 PImage wall;
 boolean trigger=false;
+int count2 = 0;
 float[] wallOffset = new float[4];
+WallPair[] walls = new WallPair[4];
 
 void setup(){
   size(800, 600);
@@ -33,6 +35,7 @@ void draw(){
   if(ypos > height - 40){
     ypos =  height - 40;
   }
+  checkTouch();
 }
 
 void keyPressed(){
@@ -70,4 +73,27 @@ void drawPairOfWalls(int xPos, int i, float offset){
     image(wall, -xPos - 200*i - 50, -200 - offset);
     popMatrix();
     image(wall, xPos + 200*i, height/2 + 150 + offset);
+    if (xPos > 0 && xPos <width) {
+          walls[i] = new WallPair(xPos, 200 + offset, height/2 + 150 + offset);
+    }
+}
+
+void checkTouch(){
+        for(WallPair pair : walls){
+            if(pair != null){
+                if((ypos < pair.y1 && xpos > pair.x && xpos < pair.x + wall.width) ||
+                   (ypos > pair.y2 && xpos > pair.x && xpos < pair.x + wall.width)){
+                    println("touch" + count2++);
+                }
+            }
+        }
+    }
+
+class WallPair{
+  float x, y1, y2;
+  WallPair(float x, float y1, float y2){
+      this.x = x;
+      this.y1 = y1;
+      this.y2 = y2;
+  }
 }
