@@ -1,7 +1,7 @@
 float xpos = 200;
 float ypos = 50;
 float vy = 0;
-float gravity = 0.7;
+float gravity = 0.3;
 PImage bird;
 PImage fon;
 int count = 0;
@@ -49,7 +49,7 @@ void draw(){
 
 void keyPressed(){
   //vy *= -1;
-  vy = -9.0f;
+  vy = -6.0f;
 }
 
 void keyReleased(){
@@ -72,16 +72,16 @@ void drawBackgroundAndWalls(int offset){
 
 void drawWalls(int offset){
   for (int i = 0; i < 4; i++) {
-      drawPairOfWalls(offset, i, wallOffset[i]);
+      drawPairOfWalls(offset + 200*i, i, wallOffset[i]);
   }   
 }
 
 void drawPairOfWalls(int xPos, int i, float offset){
     pushMatrix();
     rotate(PI);
-    image(wall, -xPos - 200*i - 50, -200 - offset);
+    image(wall, -xPos - 50, -200 - offset);
     popMatrix();
-    image(wall, xPos + 200*i, height/2 + 150 + offset);
+    image(wall, xPos, height/2 + 150 + offset);
     if (xPos > 0 && xPos <width) {
           walls[i] = new WallPair(xPos, 200 + offset, height/2 + 150 + offset);
     }
