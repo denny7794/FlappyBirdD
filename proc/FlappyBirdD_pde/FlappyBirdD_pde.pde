@@ -10,6 +10,7 @@ boolean trigger=false;
 int count2 = 0;
 float[] wallOffset = new float[4];
 WallPair[] walls = new WallPair[4];
+boolean lose = false;
 
 void setup(){
   size(800, 600);
@@ -27,13 +28,15 @@ void draw(){
   //background(0);
   //fill(255);
   //rect(xpos, ypos, 40, 40);
-  count++;
+  if(!lose){
+    count++;
+  }
   drawBackgroundAndWalls(count);
   image(bird, xpos, ypos);
   vy += gravity;
   ypos += vy;
   if(ypos > height - 40){
-    ypos =  height - 40;
+    lose = true;
   }
   checkTouch();
 }
@@ -83,6 +86,7 @@ void checkTouch(){
             if(pair != null){
                 if((ypos < pair.y1 && xpos > pair.x && xpos < pair.x + wall.width) ||
                    (ypos > pair.y2 && xpos > pair.x && xpos < pair.x + wall.width)){
+                    lose = true;
                     println("touch" + count2++);
                 }
             }
